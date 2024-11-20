@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CENAS CURTAS OFFCINE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Para alinhar a div e o footer verticalmente */
+            height: 100vh;
+            margin: 0;
+            background-color: #000000;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            background-color: #2b2b2b;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(121, 47, 47, 0.1);
+            width: 600px; /* Definindo a largura fixa */
+            height: 580px;
+            margin-bottom: 5px; /* Espaço entre a div e o footer */
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 100px; /* Ajuste o tamanho conforme necessário */
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #ff0000;
+        }
+        h2 {
+            color:#000000;
+            font-size: 25px;
+        }
+        h3 {
+            color: #bd1616;
+            font-size: 30px;
+        }
+        .random-section {
+            margin: 10px 0;
+        }
+
+        .random-section p {
+            font-size: 28px;
+            color: #e2d9d9;
+            margin: 10px 0;
+            min-height: 50px;
+        }
+
+        button {
+            padding: 20px 40px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #8d0505;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #bd1616;
+        }
+
+        footer {
+            text-align: center;
+            padding: 5px;
+            background-color: #000000;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(121, 47, 47, 0.1);
+            width: 700px; /* Mesmo tamanho da div principal */
+        }
+
+        footer img {
+            width: 100%; /* Ajuste o tamanho conforme necessário */
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="offcine.webp" alt="Logo" class="logo">
+    <h1>CENAS CURTAS</h1>
+    <h3>10º Edição</h2>
+    <!-- Seção Local -->
+    <div class="random-section">
+        <h2>Local</h2>
+        <p id="randomLocal">Clique no botão para gerar um local.</p>
+    </div>
+
+    <!-- Seção Sentimento -->
+    <div class="random-section">
+        <h2>Sentimento</h2>
+        <p id="randomSentimento">Clique no botão para gerar um sentimento.</p>
+    </div>
+
+    <!-- Seção Objetivo -->
+    <div class="random-section">
+        <h2>Objetivo</h2>
+        <p id="randomObjetivo">Clique no botão para gerar um objetivo.</p>
+    </div>
+
+    <!-- Botão de Randomização -->
+    <button onclick="randomizarTudo()">AÇÃO!!!</button>
+</div>
+
+<footer>
+    <img src="apoio.webp" alt="Apoiadores">
+</footer>
+
+<script>
+    // Arrays de opções
+    const locais = [
+        "Igreja", "Escola", "Academia", "Bar", "Rodoviaria", "Onibus", 
+        "Elevador", "Piscina", "Praia", "Sauna", "Pesqueiro", "Hospital", 
+        "Banheiro", "Escritorio", "Uber", "Batismo", "Tribunal", "Sala de aula", 
+        "Delegacia", "Necroterio", "Sala de cirurgia", "Velório"
+    ];
+    const sentimentos = [
+        "angústia", "ansiedade", "insegurança", "desespero", "medo", "pânico",
+        "inveja", "raiva", "ódio", "tristeza", "manipulação", "infantilidade",
+        "complexo de inferioridade", "dependência", "egoísmo", "psicopatia",
+        "obsessão", "depressão", "Narcisismo", "Compulsivo"
+    ];
+    const objetivos = [
+        "Manipular", "Forjar", "Mentir", "Roubar", "Seduzir", "Prender", 
+        "Expor", "Oprimir", "Fugir", "Fingir", "Enganar", "Culpar", 
+        "Condenar", "Esconder"
+    ];
+
+    // Função para randomizar com efeito de roleta
+    function randomizarTudo() {
+        roleta('randomLocal', locais);
+        roleta('randomSentimento', sentimentos);
+        roleta('randomObjetivo', objetivos);
+    }
+
+    // Função para animar a roleta de cada elemento
+    function roleta(elementId, array) {
+        const element = document.getElementById(elementId);
+        let contador = 0;
+        let velocidade = 50; // Velocidade inicial
+
+        const intervalo = setInterval(() => {
+            // Atualiza o texto temporariamente
+            element.innerText = array[Math.floor(Math.random() * array.length)];
+            contador++;
+
+            // Aumenta o tempo de troca para criar o efeito de desaceleração
+            if (contador > 20) velocidade += 50;
+
+            // Quando atingir a desaceleração final, para e define o resultado final
+            if (contador > 30) {
+                clearInterval(intervalo);
+                const resultadoFinal = array[Math.floor(Math.random() * array.length)];
+                element.innerText = resultadoFinal;
+            }
+        }, velocidade);
+    }
+</script>
+
+</body>
+</html>
